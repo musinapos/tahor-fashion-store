@@ -3,100 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TAHOR FASHION STORE | Musina Limpopo SA 🇿🇦</title>
+<title>TAHOR FASHION STORE - DEMO | Musina SA 🇿🇦</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#f8f9fa;color:#1a2a44}
-header{background:white;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #0a3d7a;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo h1{font-size:22px;line-height:1.1}.logo h1 span{color:#0a3d7a}
-.logo p{font-size:10px;letter-spacing:2px;color:#b89a5a;font-weight:600}
-.nav{display:flex;gap:8px}.nav a{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:bold;text-decoration:none}
-.btn-gold{background:#d4b86a;color:#0a2a4a}.btn-blue{background:#0a3d7a;color:white}
-.hero{background:linear-gradient(135deg,#0a2a4a 0%,#1a4a8a 100%);color:white;padding:45px 18px;text-align:center}
-.hero h2{font-size:32px;margin-bottom:8px}.hero h2 em{color:#d4b86a;font-style:normal}
-.btn{background:#d4b86a;color:#0a2a4a;padding:12px 24px;border:none;border-radius:30px;font-weight:bold;font-size:14px;cursor:pointer;display:inline-block;text-decoration:none}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;padding:28px 14px;max-width:1200px;margin:auto}
-.card{background:white;border-radius:14px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,0.07);text-align:center}
-.card img{width:100%;height:210px;object-fit:cover;border-radius:10px;background:#eef2f8;display:block}
-.card h3{margin:10px 0 3px;font-size:15px}.card p{font-size:12px;color:#666}
-.price{color:#0a3d7a;font-weight:bold;font-size:19px;margin:8px 0}
-.features{background:white;padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;max-width:1000px;margin:15px auto;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.05)}
-footer{background:#0a2a4a;color:white;text-align:center;padding:26px;margin-top:30px}
-.tag{display:inline-block;background:rgba(212,184,106,0.22);color:#d4b86a;padding:5px 10px;border-radius:20px;font-size:10px;margin:3px;font-weight:600}
-@media(max-width:700px){.features{grid-template-columns:repeat(2,1fr)}.hero h2{font-size:23px}}
+body{background:#f8f9fa;color:#1a2a44;padding-bottom:80px}
+header{background:white;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #0a3d7a;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:10px}.logo h1{font-size:20px}.logo h1 span{color:#0a3d7a}.logo p{font-size:9px;letter-spacing:1.5px;color:#b89a5a;font-weight:700}
+.nav{display:flex;gap:6px}.nav a{padding:7px 12px;border-radius:20px;font-size:11px;font-weight:bold;text-decoration:none}
+.btn-gold{background:#d4b86a;color:#0a2a4a}.btn-blue{background:#0a3d7a;color:white;position:relative}
+.badge{position:absolute;top:-8px;right:-8px;background:red;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center}
+.hero{background:linear-gradient(135deg,#0a2a4a 0%,#1a4a8a 100%);color:white;padding:35px 16px;text-align:center}
+.hero h2{font-size:28px}.hero h2 em{color:#d4b86a;font-style:normal}
+.btn{background:#d4b86a;color:#0a2a4a;padding:10px 20px;border:none;border-radius:30px;font-weight:bold;font-size:12px;cursor:pointer;display:inline-block;text-decoration:none}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:20px 12px;max-width:1200px;margin:auto}
+.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.07);text-align:center;position:relative}
+.img-wrap{position:relative;background:white;height:280px;display:flex;align-items:center;justify-content:center;padding:8px}
+.img-wrap img{max-width:100%;max-height:100%;object-fit:contain}
+.price-badge{position:absolute;top:8px;right:8px;background:#0a3d7a;color:white;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px}
+.card-info{padding:10px}
+.card-info h3{font-size:13px}.card-info p{font-size:11px;color:#666}
+.demo-bar{background:#fff8e1;border:2px dashed #d4b86a;padding:12px;margin:15px auto;max-width:1000px;border-radius:12px;text-align:center}
+#cartModal,#qrModal,#chatModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:300;align-items:center;justify-content:center;padding:12px}
+.modalBox{background:white;width:100%;max-width:380px;border-radius:16px;padding:16px;max-height:90vh;overflow-y:auto}
+.cart-item{display:flex;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:8px 0}
+.cart-item img{width:55px;height:55px;object-fit:contain;background:#f8f9fa;border-radius:8px}
+/* FLOATING BUTTONS */
+.float-btn{position:fixed;bottom:20px;right:15px;z-index:250;display:flex;flex-direction:column;gap:10px}
+.float-btn button{width:54px;height:54px;border-radius:50%;border:none;box-shadow:0 4px 15px rgba(0,0,0,0.3);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+#chatBubble{position:fixed;bottom:85px;right:80px;background:#0a3d7a;color:white;padding:8px 12px;border-radius:18px;font-size:12px;display:none;z-index:240}
+#qrBox{display:flex;justify-content:center;margin:15px 0}
+@media(max-width:700px){.img-wrap{height:300px}.hero h2{font-size:20px}}
 </style>
 </head>
 <body>
 
 <header>
 <div class="logo">
-<img src="tahor-logo.jpg" alt="TAHOR" style="height:56px;width:56px;border-radius:50%;border:2px solid #0a3d7a;object-fit:cover;background:white;">
-<div><h1>TAHOR <span>FASHION STORE</span></h1><p>PURE FASHION • MUSINA LIMPOPO SA 🇿🇦</p></div>
+<img src="tahor-logo.jpg" style="height:50px;width:50px;border-radius:50%;border:2px solid #0a3d7a;object-fit:cover">
+<div><h1>TAHOR <span>FASHION</span></h1><p>DEMO • MUSINA SA 🇿🇦 • CLIENT READY</p></div>
 </div>
 <div class="nav">
-<a href="measurements.html" class="btn-blue">📏 MEASURE</a>
-<a href="pricing.html" class="btn-gold">💰 ZAR PRICING</a>
+<a href="#" class="btn-blue" onclick="openCart()">🛒 CART <span class="badge" id="cartCount">0</span></a>
+<a href="#" class="btn-gold" onclick="openQR()">📱 QR CODE</a>
 </div>
 </header>
 
+<div class="demo-bar">
+<strong>🔥 LIVE DEMO FOR CLIENTS 🔥</strong> — Add to Cart → Receipt with Picture → Chat Online → QR Code → WhatsApp Order — All in ONE APP!
+<br><small>Show client: Phone view | Same app chat | Instant receipt</small>
+</div>
+
 <section class="hero">
-<h2>TAHOR <em>PURE FASHION</em> 🇿🇦</h2>
-<p>Musina Limpopo 0900 - Proudly South African - Custom Tailoring + Store + POS</p>
-<p><span class="tag">ZAR - South African Rand</span><span class="tag">Musina Limpopo</span><span class="tag">Delivery All SA</span><span class="tag">Custom Sizes</span></p>
-<br><a href="#shop" class="btn">SHOP NOW - YOUR 6 PRODUCTS</a>
-<p style="margin-top:12px;font-size:12px">📱 See Everything On Your Phone - Order #10284 - Pay Cash / EFT / Capitec</p>
+<h2>TAHOR <em>PURE FASHION</em> 🇿🇦 DEMO</h2>
+<p>First Cut Is The Deepest — Real Nice Client Demo</p>
+<p style="margin-top:8px"><span style="background:rgba(212,184,106,0.3);padding:4px 8px;border-radius:12px;font-size:10px">ADD TO CART ✅</span> <span style="background:rgba(212,184,106,0.3);padding:4px 8px;border-radius:12px;font-size:10px">CHAT WITH US ✅</span> <span style="background:rgba(212,184,106,0.3);padding:4px 8px;border-radius:12px;font-size:10px">QR CODE ✅</span></p>
 </section>
 
-<section class="products" id="shop">
+<section class="products">
 
-<!-- YOUR FILES - ALL IN ROOT - ALIGNED WITH YOUR GITHUB -->
 <div class="card">
-<img src="dress1.jpg" alt="Ankara Dress">
-<h3>Ankara Dress Blue</h3><p>TAHOR Special - Limpopo Style</p><div class="price">R449 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="dress1.jpg"><div class="price-badge">R449 ZAR</div></div>
+<div class="card-info"><h3>Ankara Dress Blue</h3><p>Price: R449 - On Product</p><button class="btn" onclick="addToCart('dress1.jpg','Ankara Dress Blue',449)">Add to Cart</button></div>
 </div>
 
 <div class="card">
-<img src="dress2.jpg" alt="Wedding Dress">
-<h3>Lace White Wedding</h3><p>Bridal - Made in Musina SA</p><div class="price">R899 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="dress2.jpg"><div class="price-badge">R899 ZAR</div></div>
+<div class="card-info"><h3>Lace White Wedding</h3><p>Price: R899 - On Product</p><button class="btn" onclick="addToCart('dress2.jpg','Lace White Wedding',899)">Add to Cart</button></div>
 </div>
 
 <div class="card">
-<img src="tshirt1.jpg" alt="T-Shirt">
-<h3>Ladies T-Shirt</h3><p>All Colours - S to XXL - SA Sizes</p><div class="price">R199 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="tshirt1.jpg"><div class="price-badge">R199 ZAR</div></div>
+<div class="card-info"><h3>Ladies T-Shirt</h3><p>Price: R199 - SA Sizes</p><button class="btn" onclick="addToCart('tshirt1.jpg','Ladies T-Shirt',199)">Add to Cart</button></div>
 </div>
 
 <div class="card">
-<img src="jeans1.jpg" alt="Jeans">
-<h3>Skinny Jeans</h3><p>Stretch Comfort Fit - SA</p><div class="price">R599 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="jeans1.jpg"><div class="price-badge">R599 ZAR</div></div>
+<div class="card-info"><h3>Skinny Jeans</h3><p>Price: R599 - Full View</p><button class="btn" onclick="addToCart('jeans1.jpg','Skinny Jeans',599)">Add to Cart</button></div>
 </div>
 
 <div class="card">
-<img src="sneaker2.jpg" alt="Black Sneakers">
-<h3>Black Sneakers Sport</h3><p>Comfort + Style - SA</p><div class="price">R749 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="sneaker2.jpg"><div class="price-badge">R749 ZAR</div></div>
+<div class="card-info"><h3>Black Sneakers</h3><p>Price: R749 - Receipt with Pic</p><button class="btn" onclick="addToCart('sneaker2.jpg','Black Sneakers',749)">Add to Cart</button></div>
 </div>
 
 <div class="card">
-<img src="sneaker3.jpg" alt="Pink Sneakers">
-<h3>Pink Fashion Sneakers</h3><p>Ladies Favourite 💖 SA</p><div class="price">R699 ZAR</div><button class="btn" style="padding:7px 12px;font-size:12px">Add to Cart</button>
+<div class="img-wrap"><img src="sneaker3.jpg"><div class="price-badge">R699 ZAR</div></div>
+<div class="card-info"><h3>Pink Fashion Sneakers</h3><p>Price: R699 - Demo Ready</p><button class="btn" onclick="addToCart('sneaker3.jpg','Pink Sneakers',699)">Add to Cart</button></div>
 </div>
 
 </section>
 
-<section class="features">
-<div>📏<br><strong>Custom Measures</strong><br><small>Musina Limpopo</small></div>
-<div>🇿🇦<br><strong>Proudly SA</strong><br><small>ZAR - All 9 Provinces</small></div>
-<div>📦<br><strong>Orders #10284</strong><br><small>PEP Paxi Courier Guy</small></div>
-<div>💳<br><strong>Pay SA</strong><br><small>Cash EFT Capitec</small></div>
-</section>
+<!-- CART RECEIPT WITH PICTURE -->
+<div id="cartModal"><div class="modalBox">
+<h3 style="text-align:center">🧾 TAHOR RECEIPT 🇿🇦</h3><p style="text-align:center;font-size:10px;color:gray">Musina Limpopo - Demo Receipt with Picture</p><hr style="margin:10px 0">
+<div id="cartItems"></div><hr style="margin:10px 0">
+<p style="display:flex;justify-content:space-between;font-weight:bold"><span>Total ZAR:</span><span id="cartTotal">R0</span></p>
+<button class="btn" style="width:100%;margin-top:10px" onclick="checkoutWA()">Checkout → WhatsApp Order</button>
+<button class="btn" style="width:100%;background:#eee;color:#333;margin-top:8px" onclick="closeAll()">Continue Shopping</button>
+</div></div>
 
-<footer>
-<h3>TAHOR FASHION STORE - PURE FASHION 🇿🇦</h3>
-<p>Musina, Limpopo 0900, South Africa</p>
-<p>📞 068 036 1133 | WhatsApp: 079 907 3779 | 📍 Musina SA</p>
-<p style="font-size:11px;margin-top:8px">All Prices in ZAR - South African Rand | Delivery Across Limpopo & SA</p>
-<p style="margin-top:10px;font-size:11px;opacity:0.7">© 2024 TAHOR - Musina Limpopo SA 🇿🇦 | 6 Products Live | ROOT FILES</p>
-</footer>
+<!-- QR CODE MODAL -->
+<div id="qrModal"><div class="modalBox" style="text-align:center">
+<h3>📱 TAHOR QR CODE 🇿🇦</h3><p style="font-size:11px;color:gray">Scan to open shop on phone - Demo for clients</p>
+<div id="qrBox"></div>
+<p id="qrLink" style="font-size:10px;word-break:break-all;background:#f5f5f5;padding:8px;border-radius:8px"></p>
+<button class="btn" style="width:100%;margin-top:10px" onclick="shareQR()">Share QR Link</button>
+<button class="btn" style="width:100%;background:#eee;color:#333;margin-top:8px" onclick="closeAll()">Close</button>
+</div></div>
+
+<!-- CHAT WITH US - SAME APP COMMUNICATION -->
+<div id="chatModal"><div class="modalBox">
+<h3>💬 Chat With Us - Online Now 🇿🇦</h3><p style="font-size:11px;color:green">● TAHOR Online - Musina Team - Replies in same app</p>
+<div id="chatHistory" style="height:220px;overflow-y:auto;background:#f8f9fa;padding:10px;border-radius:10px;margin:10px 0;font-size:12px">
+<div style="background:white;padding:8px 10px;border-radius:12px;margin:5px 0;max-width:80%"><strong>TAHOR:</strong> Sawubona! 👋 Welcome to TAHOR Fashion Store Musina. How can we help? Price on product, Add to Cart, QR ready for demo!</div>
+</div>
+<div style="display:flex;gap:6px"><input id="chatInput" placeholder="Type message to client..." style="flex:1;padding:10px;border:1px solid #ddd;border-radius:20px;font-size:12px"><button class="btn" onclick="sendChat()">Send</button></div>
+<p style="font-size:10px;color:gray;margin-top:8px;text-align:center">Demo: Client chats HERE inside same app + WhatsApp option below</p>
+<button class="btn" style="width:100%;background:#25D366;color:white;margin-top:10px" onclick="openWAChat()">Open WhatsApp Chat - Real Client</button>
+<button class="btn" style="width:100%;background:#eee;color:#333;margin-top:6px" onclick="closeAll()">Close Chat</button>
+</div></div>
+
+<!-- FLOATING CHAT + QR BUTTONS -->
+<div class="float-btn">
+<button onclick="openChat()" style="background:#0a3d7a;color:white" title="Chat With Us">💬</button>
+<button onclick="openQR()" style="background:#d4b86a;color:#0a2a4a" title="QR Code">📱</button>
+</div>
+<div id="chatBubble">Chat with us - Online! 💬</div>
+
+<script>
+let cart=[];
+function addToCart(img,name,price){cart.push({img,name,price});document.getElementById('cartCount').innerText=cart.length;openCart();renderCart();}
+function renderCart(){let h='';let tot=0;cart.forEach((c,i)=>{tot+=c.price;h+=`<div class="cart-item"><img src="${c.img}"><div style="flex:1"><strong style="font-size:12px">${c.name}</strong><br><small>R${c.price} ZAR</small></div><button onclick="removeItem(${i})" style="border:none;background:#ffeeee;color:red;padding:4px 8px;border-radius:6px">X</button></div>`});document.getElementById('cartItems').innerHTML=h||'<p style="text-align:center;color:gray">Cart empty - Demo Add to Cart</p>';document.getElementById('cartTotal').innerText='R'+tot+' ZAR';}
+function removeItem(i){cart.splice(i,1);document.getElementById('cartCount').innerText=cart.length;renderCart();}
+function openCart(){closeAll();document.getElementById('cartModal').style.display='flex';}
+function openQR(){closeAll();let link=window.location.href;document.getElementById('qrLink').innerText=link;document.getElementById('qrBox').innerHTML='';new QRCode(document.getElementById('qrBox'),{text:link,width:180,height:180});document.getElementById('qrModal').style.display='flex';}
+function openChat(){closeAll();document.getElementById('chatModal').style.display='flex';document.getElementById('chatBubble').style.display='none';}
+function closeAll(){document.getElementById('cartModal').style.display='none';document.getElementById('qrModal').style.display='none';document.getElementById('chatModal').style.display='none';}
+function checkoutWA(){let tot=cart.reduce((s,i)=>s+i.price,0);let msg=`Hello TAHOR MUSINA DEMO 🇿🇦%0AOrder:%0A${cart.map(c=>`- ${c.name} R${c.price}`).join('%0A')}%0ATotal: R${tot} ZAR%0A%0ADemo - Receipt with Picture - QR Ready`;window.open(`https://wa.me/27799073779?text=${msg}`,'_blank');}
+function openWAChat(){window.open(`https://wa.me/27799073779?text=Hello TAHOR - Chat from same app demo - Musina SA 🇿🇦`,'_blank');}
+function sendChat(){let inp=document.getElementById('chatInput');let txt=inp.value.trim();if(!txt)return;let hist=document.getElementById('chatHistory');hist.innerHTML+=`<div style="background:#d4b86a;padding:8px 10px;border-radius:12px;margin:5px 0;margin-left:auto;max-width:80%;text-align:right"><strong>You (Demo):</strong> ${txt}</div>`;inp.value='';setTimeout(()=>{hist.innerHTML+=`<div style="background:white;padding:8px 10px;border-radius:12px;margin:5px 0;max-width:80%"><strong>TAHOR:</strong> Thanks! We received: "${txt}" - This is same-app chat demo. For real order, use cart + WhatsApp! 🇿🇦</div>`;hist.scrollTop=hist.scrollHeight;},600);hist.scrollTop=hist.scrollHeight;}
+function shareQR(){if(navigator.share){navigator.share({title:'TAHOR Fashion Store Musina SA',url:window.location.href});}else{alert('Link copied: '+window.location.href);}}
+// Show chat bubble after 3 sec for demo effect
+setTimeout(()=>{document.getElementById('chatBubble').style.display='block';setTimeout(()=>{document.getElementById('chatBubble').style.display='none'},4000)},3000);
+</script>
 
 </body>
 </html>
